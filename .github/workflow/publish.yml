@@ -1,0 +1,51 @@
+name: Build, Test & Publish Snapid
+
+# Triggers for this workflow
+on:
+  push:
+    branches:
+      - main # Run when code is pushed to main
+    tags:
+      - "v*" # Run when a version tag is pushed (like v1.0.0)
+
+jobs:
+  build-test-publish:
+    runs-on: ubuntu-latest # GitHub will run this workflow on a Linux runner
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        # Explanation: This step downloads your repo code to the runner so subsequent steps can access it
+
+      # Step 2: Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Specify Node version
+          registry-url: https://registry.npmjs.org/
+        # Explanation: Installs Node.js 20 on the runner and sets npm registry to default
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci
+        # Explanation: Installs all dependencies from package-lock.json
+        # npm ci is faster and ensures exact versions
+
+      # Step 4: Run tests
+      - name: Run tests
+        run: npm run test
+        # Explanation: Runs all unit, collision, and performance tests to ensure code is working
+
+      # Step 5: Build the package
+      - name: Build package
+        run: npm run build
+        # Explanation: Compiles TypeScript code into JS + declaration files in the dist/ folder
+
+      # Step 6: Publish to npm
+      - name: Publish package
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        # Explanation: Publishes package to npm using a secure token stored in GitHub Secrets
+        # --access public ensures the package is publicly available
