@@ -1,6 +1,6 @@
 {
   "name": "snapid",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Fast, secure, URL-safe, short unique ID generator for Node.js, browser, and Deno",
   "main": "dist/index.js",
   "module": "dist/index.js",
