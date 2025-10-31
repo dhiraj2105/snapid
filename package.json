@@ -2,18 +2,24 @@
   "name": "snapid",
   "version": "1.0.4",
   "description": "Fast, secure, URL-safe, short unique ID generator for Node.js, browser, and Deno",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
   "files": [
     "dist",
     "README.md"
   ],
   "scripts": {
-    "build": "tsc",
-    "test": "vitest",
-    "bench": "ts-node benchmark/compare.ts",
-    "prepublishOnly": "npm run build && npm test"
+    "build": "tsc && tsc --project tsconfig.cjs.json && cp dist/index.js dist/index.cjs",
+    "test": "vitest --run",
+    "prepublishOnly": "npm run build",
+    "bench": "ts-node benchmark/compare.ts"
   },
   "keywords": [
     "snapid",
@@ -27,12 +33,14 @@
   ],
   "author": "Dhiraj Kumar",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "devDependencies": {
     "@types/node": "^24.9.2",
+    "assertion-error": "^2.0.1",
     "np": "^10.2.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
+    "undici-types": "^7.16.0",
     "vitest": "^4.0.5"
   }
 }

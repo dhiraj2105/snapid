@@ -20,7 +20,7 @@ Ideal for **database keys, tokens, URLs, logs, caches**, or any scenario where y
 ## Installation
 
 ```bash
-npm install @snapid
+npm install snapid
 ```
 
 ---
@@ -28,7 +28,7 @@ npm install @snapid
 ## Usage
 
 ```TypeScript
-import { snapid } from "@snapid";
+import { snapid } from "snapid";
 
 // default usage
 const id = snapid();
