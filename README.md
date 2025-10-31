@@ -20,14 +20,15 @@ Ideal for **database keys, tokens, URLs, logs, caches**, or any scenario where y
 ## Installation
 
 ```bash
-npm install @snapid/core
+npm install @snapid
 ```
 
 ---
 
 ## Usage
-``` TypeScript
-import { snapid } from "@snapid/core";
+
+```TypeScript
+import { snapid } from "@snapid";
 
 // default usage
 const id = snapid();
@@ -64,19 +65,20 @@ console.log(trackUrl); // e.g., "8M2Fh7QaZx3a"
 ```
 
 ## Options
-| Option     | Type      | Default   | Description                 |
-| ----------- | --------- | --------- | --------------------------- |
-| `size`     | `number`  | `10`        | Length of the random part   |
-| `time`     | `boolean` | `false`     | Prepend timestamp prefix    |
-| `alphabet` | `'base58' \| 'base62' \| 'hex'` | `'base58'` | Alphabet used for encoding |
-| `seed`     | `string`  | `undefined` | Optional deterministic seed |
+
+| Option     | Type                            | Default     | Description                 |
+| ---------- | ------------------------------- | ----------- | --------------------------- |
+| `size`     | `number`                        | `10`        | Length of the random part   |
+| `time`     | `boolean`                       | `false`     | Prepend timestamp prefix    |
+| `alphabet` | `'base58' \| 'base62' \| 'hex'` | `'base58'`  | Alphabet used for encoding  |
+| `seed`     | `string`                        | `undefined` | Optional deterministic seed |
 
 ---
 
 ## Example Use Cases
 
- - **Database primary keys**
- - **Short URLs or referral codes**
- - **Session or API tokens**
- - **Cache keys**
- - **Trace/log IDs for observability**
+- **Database primary keys**
+- **Short URLs or referral codes**
+- **Session or API tokens**
+- **Cache keys**
+- **Trace/log IDs for observability**
