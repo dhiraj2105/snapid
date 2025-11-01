@@ -1,7 +1,7 @@
 /**
  * Return a timestamp prefix encoded in the given alphabet
  */
-import { ALPHABETS } from "../constants";
+import { ALPHABETS } from "../constants.js";
 
 export function getTimePrefix(
   alphabet: "base58" | "base62" | "hex" = "base58",
@@ -19,3 +19,6 @@ export function getTimePrefix(
 
   return result;
 }
+
+export default getTimePrefix
+export {getTimePrefix as GettimePrefix}

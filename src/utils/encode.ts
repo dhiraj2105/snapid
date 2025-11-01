@@ -22,7 +22,7 @@
 //   return result || chars[0];
 // }
 
-import { ALPHABETS } from "../constants";
+import { ALPHABETS } from "../constants.js";
 
 /**
  * Fast encode bytes into string using given alphabet
@@ -43,3 +43,6 @@ export function encodeBase(
 
   return result;
 }
+
+export default encodeBase
+export {encodeBase as EncodeBase}

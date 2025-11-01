@@ -7,8 +7,9 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "types": "./dist/types.d.ts"
     }
   },
   "files": [
@@ -16,7 +17,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc && tsc --project tsconfig.cjs.json && cp dist/index.js dist/index.cjs",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc",
     "test": "vitest --run",
     "prepublishOnly": "npm run build",
     "bench": "ts-node benchmark/compare.ts"

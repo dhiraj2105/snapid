@@ -24,11 +24,11 @@
 //   return prefix + encoded;
 // }
 
-import { getRandomBytes } from "./utils/random";
-import { encodeBase } from "./utils/encode";
-import { getTimePrefix } from "./utils/time";
-import { DEFAULTS } from "./constants";
-import type { SnapIdOptions } from "./types";
+import getTimePrefix from "./utils/time.js";
+import getRandomBytes from "./utils/random.js";
+import encodeBase from "./utils/encode.js";
+import { DEFAULTS } from "./constants.js";
+import type { SnapIdOptions } from "./types.js";
 
 /**
  * Generate a fast, secure, URL-safe unique ID
@@ -48,3 +48,6 @@ export function snapid(opts: SnapIdOptions = {}): string {
 
   return prefix + encoded;
 }
+
+export {snapid as SnapId}
+export default snapid;

@@ -2,12 +2,16 @@
  * Get random bytes securely
  * Works in Node.js and Browser
  */
+
+import { createRequire } from "module";
+
 export function getRandomBytes(size: number, seed?: string): Uint8Array {
   let bytes = new Uint8Array(size);
+  const require1 = createRequire(import.meta.url);
 
   // Node.js
   if (typeof process !== "undefined" && process.versions?.node) {
-    const crypto = require("crypto");
+    const crypto = require1("crypto");
     if (!seed) {
       return crypto.randomBytes(size);
     }
@@ -33,3 +37,6 @@ export function getRandomBytes(size: number, seed?: string): Uint8Array {
 
   return bytes;
 }
+
+export default getRandomBytes
+export {getRandomBytes as GetRandomBytes}
