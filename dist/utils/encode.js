@@ -1,7 +1,4 @@
-"use strict";
 // import { ALPHABETS } from "../constants";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.encodeBase = encodeBase;
 // /**
 //  * Encode a byte array into a string using the given alphabet
 //  */
@@ -21,13 +18,13 @@ exports.encodeBase = encodeBase;
 //   }
 //   return result || chars[0];
 // }
-const constants_1 = require("../constants");
+import { ALPHABETS } from "../constants.js";
 /**
  * Fast encode bytes into string using given alphabet
  * Direct mapping for speed instead of BigInt conversion
  */
-function encodeBase(bytes, alphabet = "base58") {
-    const chars = constants_1.ALPHABETS[alphabet];
+export function encodeBase(bytes, alphabet = "base58") {
+    const chars = ALPHABETS[alphabet];
     const len = chars.length;
     let result = "";
     // Map each byte to a char in the alphabet
@@ -36,3 +33,5 @@ function encodeBase(bytes, alphabet = "base58") {
     }
     return result;
 }
+export default encodeBase;
+export { encodeBase as EncodeBase };
