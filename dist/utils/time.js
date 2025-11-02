@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTimePrefix = getTimePrefix;
 /**
  * Return a timestamp prefix encoded in the given alphabet
  */
-const constants_1 = require("../constants");
-function getTimePrefix(alphabet = "base58") {
-    const chars = constants_1.ALPHABETS[alphabet];
+import { ALPHABETS } from "../constants.js";
+export function getTimePrefix(alphabet = "base58") {
+    const chars = ALPHABETS[alphabet];
     const now = Date.now(); // milliseconds
     let value = BigInt(now);
     let result = "";
@@ -17,3 +14,5 @@ function getTimePrefix(alphabet = "base58") {
     }
     return result;
 }
+export default getTimePrefix;
+export { getTimePrefix as GettimePrefix };
