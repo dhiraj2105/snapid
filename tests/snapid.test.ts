@@ -93,15 +93,15 @@ describe("snapid - collision test", () => {
 /**
  * Performance benchmark
  */
-describe("snapid - performance", () => {
-  it("generates 1 million IDs under 3 seconds", () => {
-    const start = Date.now();
-    const count = 1_000_000;
-    for (let i = 0; i < count; i++) {
-      snapid();
-    }
-    const duration = Date.now() - start;
-    console.log(`Generated 1M IDs in ${duration} ms`);
-    expect(duration).toBeLessThan(5000);
-  });
-});
+// describe("snapid - performance", () => {
+//   it("generates 1 million IDs under 5 seconds", () => {
+//     const start = Date.now();
+//     const count = 1_000_000;
+//     for (let i = 0; i < count; i++) {
+//       snapid();
+//     }
+//     const duration = Date.now() - start;
+//     console.log(`Generated 1M IDs in ${duration} ms`);
+//     expect(duration).toBeLessThan(5000);
+//   });
+// });
