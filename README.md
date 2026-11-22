@@ -1,21 +1,16 @@
 # Snapid
 
-A **fast, secure, URL-safe, short unique ID generator** for Node.js, browser, and Deno.
-Ideal for **database keys, tokens, URLs, logs, caches**, or any scenario where you need unique identifiers.
-
----
+Snapid is a dependency-free, short identifier generator for Node.js, browsers, Deno, and JavaScript or TypeScript applications. It supports secure randomness, exact-length IDs, URL-safe alphabets, sortable timestamp prefixes, and reproducible seeded output.
 
 ## Features
 
-- **Zero dependencies** – plug and play
-- **URL-safe** by default (Base58)
-- **Configurable length** (`size`)
-- **Optional timestamp prefix** for sortable IDs
-- **Optional deterministic seed** for reproducible IDs
-- **Supports Node.js, Browser, and Deno**
-- **High-performance** – generate millions of IDs quickly
-
----
+- Secure cryptographic randomness in Node.js and Web Crypto environments
+- Three URL-safe alphabets: Base58, Base62, and hexadecimal
+- Exact random segment lengths from 1 to 1024 characters
+- Optional fixed-width timestamp prefixes
+- Reproducible identifiers through an optional seed
+- Named, default, and backward-compatible exports
+- First-class TypeScript declarations
 
 ## Installation
 
@@ -23,62 +18,117 @@ Ideal for **database keys, tokens, URLs, logs, caches**, or any scenario where y
 npm install snapid
 ```
 
----
+## Quick start
 
-## Usage
+```typescript
+import snapid, { SnapId } from "snapid";
 
-```TypeScript
-import { snapid } from "snapid";
-
-// default usage
+// Both APIs create a 10-character Base58 identifier.
 const id = snapid();
-console.log(id); // e.g., "a7FgQwLx9Z"
-
-// custom size
-const id16 = snapid({ size: 16 });
-console.log(id16);
-
-// timestamp prefix (sortable)
-const timestampId = snapid({ time: true });
-console.log(timestampId);
-
-// deterministic ID
-const seededId = snapid({ seed: "user123" });
-console.log(seededId);
-
-// custom alphabet
-const hexId = snapid({ alphabet: "hex", size: 12 });
-console.log(hexId);
-
-// append ID to a short URL
-const shortUrl = `https://example.com/${snapid()}`;
-console.log(shortUrl); // e.g., "https://example.com/a7FgQwLx9Z"
-
-// create a referral code URL
-const referralUrl = `https://example.com/ref/${snapid({ size: 8 })}`;
-console.log(referralUrl); // e.g., "https://example.com/ref/3kPq9Xz1"
-
-// generate a tracking link with timestamp prefix
-const trackUrl = `https://example.com/track/${snapid({ time: true })}`;
-console.log(trackUrl); // e.g., "8M2Fh7QaZx3a"
-
+const sameApi = SnapId();
 ```
 
 ## Options
 
-| Option     | Type                            | Default     | Description                 |
-| ---------- | ------------------------------- | ----------- | --------------------------- |
-| `size`     | `number`                        | `10`        | Length of the random part   |
-| `time`     | `boolean`                       | `false`     | Prepend timestamp prefix    |
-| `alphabet` | `'base58' \| 'base62' \| 'hex'` | `'base58'`  | Alphabet used for encoding  |
-| `seed`     | `string`                        | `undefined` | Optional deterministic seed |
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `number` | `10` | Exact length of the random segment. Values must be integers from 1 through 1024. |
+| `time` | `boolean` | `false` | Adds a fixed-width timestamp prefix for sortable identifiers. |
+| `alphabet` | `"base58" \| "base62" \| "hex"` | `"base58"` | Character set used by the identifier. |
+| `seed` | `string` | `undefined` | Generates reproducible output for the same seed and options. |
 
----
+## Examples
 
-## Example Use Cases
+### Generate an exact-length identifier
 
-- **Database primary keys**
-- **Short URLs or referral codes**
-- **Session or API tokens**
-- **Cache keys**
-- **Trace/log IDs for observability**
+```typescript
+import snapid from "snapid";
+
+const id = snapid({ size: 16 });
+console.log(id);
+```
+
+### Generate a sortable timestamp ID
+
+```typescript
+import snapid from "snapid";
+
+const id = snapid({ time: true, size: 12 });
+console.log(id);
+```
+
+IDs generated with `time: true` contain a fixed-width prefix. Later timestamps sort after earlier timestamps when the same alphabet is used.
+
+### Use a custom alphabet
+
+```typescript
+import snapid from "snapid";
+
+const base62Id = snapid({ alphabet: "base62", size: 12 });
+const hexId = snapid({ alphabet: "hex", size: 12 });
+```
+
+### Generate reproducible IDs
+
+```typescript
+import snapid from "snapid";
+
+const first = snapid({ seed: "user-123", size: 12 });
+const second = snapid({ seed: "user-123", size: 12 });
+
+console.log(first === second); // true
+```
+
+Seeds are intended for reproducible generation and test fixtures. They are not cryptographic secrets and seeded IDs must not be used as unpredictable security tokens.
+
+### Build short URLs
+
+```typescript
+import snapid from "snapid";
+
+const shortUrl = `https://example.com/${snapid({ size: 8 })}`;
+const referralUrl = `https://example.com/ref/${snapid({ size: 12 })}`;
+```
+
+## Public exports
+
+```typescript
+import snapid, {
+  SnapId,
+  ALPHABETS,
+  DEFAULTS,
+  DEFAULT_SIZE,
+  MAX_SIZE,
+  encodeBase,
+  getRandomBytes,
+  getTimePrefix,
+} from "snapid";
+
+import type { SnapIdOptions, AlphabetName } from "snapid";
+```
+
+- `snapid` and `SnapId` create identifiers.
+- `ALPHABETS` contains the supported character sets.
+- `DEFAULTS`, `DEFAULT_SIZE`, and `MAX_SIZE` describe package defaults and limits.
+- `encodeBase`, `getRandomBytes`, and `getTimePrefix` expose individual utilities for advanced use.
+
+## Runtime behavior
+
+Node.js uses `node:crypto.randomFillSync`. Browsers and Deno use `globalThis.crypto.getRandomValues`. If neither is available, Snapid throws an error instead of silently producing weak identifiers.
+
+Invalid option values throw `TypeError`. Invalid sizes throw `RangeError`.
+
+## Development
+
+```bash
+npm install
+npm test
+npm run build
+npm run example
+```
+
+Runnable source examples are available in [examples/](./examples).
+
+## License
+
+ISC
