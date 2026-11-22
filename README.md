@@ -129,6 +129,18 @@ npm run example
 
 Runnable source examples are available in [examples/](./examples).
 
+## Contributing
+
+Contributions are welcome! You can help by reporting bugs, suggesting improvements, improving documentation, or submitting code changes.
+
+1. Fork the repository and create a branch for your change.
+2. Install dependencies with `npm install`.
+3. Make your changes and add or update tests as needed.
+4. Run `npm test`, `npm run build`, and `npm run example`.
+5. Open a pull request describing the change and its verification.
+
+For larger changes, please open an issue first to discuss the approach. Keep pull requests focused and avoid including unrelated changes.
+
 ## License
 
 ISC
