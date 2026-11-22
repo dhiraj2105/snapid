@@ -36,6 +36,14 @@
   ],
   "author": "Dhiraj Kumar",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com"
+  },
+  "homepage": "https://github.com",
+  "bugs": {
+    "url": "https://github.com"
+  },
   "type": "module",
   "devDependencies": {
     "@types/node": "^24.9.2",
