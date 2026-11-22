@@ -38,11 +38,11 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com"
+    "url": "git+https://github.com/dhiraj2105/snapid.git"
   },
-  "homepage": "https://github.com",
+  "homepage": "https://github.com/dhiraj2105/snapid#readme",
   "bugs": {
-    "url": "https://github.com"
+    "url": "https://github.com/dhiraj2105/snapid/issues"
   },
   "type": "module",
   "devDependencies": {
