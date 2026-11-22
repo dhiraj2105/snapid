@@ -1,7 +1,11 @@
+import { ALPHABETS } from "../constants.js";
+export type AlphabetName = keyof typeof ALPHABETS;
 /**
- * Fast encode bytes into string using given alphabet
- * Direct mapping for speed instead of BigInt conversion
+ * Encode one byte into exactly one character from a named alphabet.
+ *
+ * @param bytes - Source bytes to encode.
+ * @param alphabet - Character set used for encoding.
+ * @returns Characters in the same order as the source bytes.
+ * @throws {TypeError} When `alphabet` is not supported.
  */
-export declare function encodeBase(bytes: Uint8Array, alphabet?: "base58" | "base62" | "hex"): string;
-export default encodeBase;
-export { encodeBase as EncodeBase };
+export declare function encodeBase(bytes: Uint8Array, alphabet?: AlphabetName): string;

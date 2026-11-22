@@ -1,8 +1,14 @@
 import type { SnapIdOptions } from "./types.js";
 /**
- * Generate a fast, secure, URL-safe unique ID
- * Optimized for high performance
+ * Generate a short identifier using secure random bytes.
+ *
+ * @param options - Optional length, alphabet, timestamp, and seed settings.
+ * @returns A URL-safe identifier.
+ * @throws {TypeError} When an option has an unsupported type or value.
+ * @throws {RangeError} When `size` is outside the supported range.
  */
-export declare function snapid(opts?: SnapIdOptions): string;
-export { snapid as SnapId };
+export declare function snapid(options?: SnapIdOptions): string;
+/** Backward-compatible named alias for {@link snapid}. */
+export declare const SnapId: typeof snapid;
+/** Default export for convenience. */
 export default snapid;
