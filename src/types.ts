@@ -1,6 +1,13 @@
 export interface SnapIdOptions {
-  size?: number; // random segment length
-  time?: boolean; // prepend timestamp
+  /** Random segment length. Accepts whole numbers from 1 through 1024. */
+  size?: number;
+
+  /** Prepend a fixed-width, sortable timestamp segment. */
+  time?: boolean;
+
+  /** Character set used for the timestamp and random segments. */
   alphabet?: "base58" | "base62" | "hex";
-  seed?: string; // deterministic optional
+
+  /** Optional deterministic seed. */
+  seed?: string;
 }
