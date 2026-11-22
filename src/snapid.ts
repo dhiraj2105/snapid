@@ -1,53 +1,48 @@
-// import { getRandomBytes } from "./utils/random";
-// import { encodeBase } from "./utils/encode";
-// import { getTimePrefix } from "./utils/time";
-// import { DEFAULTS } from "./constants";
-// import type { SnapIdOptions } from "./types";
-
-// /**
-//  * Generate a unique, short, URL-safe ID
-//  * @param opts - configuration options
-//  * @returns string ID
-//  */
-// export function snapid(opts: SnapIdOptions = {}): string {
-//   const { size, time, alphabet, seed } = { ...DEFAULTS, ...opts };
-
-//   // Timestamp prefix if requested
-//   const prefix = time ? getTimePrefix(alphabet) : "";
-
-//   // Random bytes
-//   const bytes = getRandomBytes(size, seed);
-
-//   // Encode random bytes
-//   const encoded = encodeBase(bytes, alphabet);
-
-//   return prefix + encoded;
-// }
-
-import getTimePrefix from "./utils/time.js";
-import getRandomBytes from "./utils/random.js";
-import encodeBase from "./utils/encode.js";
-import { DEFAULTS } from "./constants.js";
+import { ALPHABETS, DEFAULTS, MAX_SIZE } from "./constants.js";
 import type { SnapIdOptions } from "./types.js";
+import { encodeBase } from "./utils/encode.js";
+import { getRandomBytes } from "./utils/random.js";
+import { getTimePrefix } from "./utils/time.js";
 
 /**
- * Generate a fast, secure, URL-safe unique ID
- * Optimized for high performance
+ * Generate a short identifier using secure random bytes.
+ *
+ * @param options - Optional length, alphabet, timestamp, and seed settings.
+ * @returns A URL-safe identifier.
+ * @throws {TypeError} When an option has an unsupported type or value.
+ * @throws {RangeError} When `size` is outside the supported range.
  */
-export function snapid(opts: SnapIdOptions = {}): string {
-  const { size, time, alphabet, seed } = { ...DEFAULTS, ...opts };
+export function snapid(options: SnapIdOptions = {}): string {
+  if (options === null || typeof options !== "object") {
+    throw new TypeError("Snap ID options must be an object");
+  }
 
-  // Timestamp prefix if requested
-  const prefix = time ? getTimePrefix(alphabet) : "";
+  const { size, time, alphabet, seed } = { ...DEFAULTS, ...options };
 
-  // Random bytes
+  if (!Number.isInteger(size) || size < 1 || size > MAX_SIZE) {
+    throw new RangeError(`size must be an integer from 1 through ${MAX_SIZE}`);
+  }
+  if (typeof time !== "boolean") {
+    throw new TypeError("time must be a boolean");
+  }
+  if (typeof alphabet !== "string" || !(alphabet in ALPHABETS)) {
+    throw new TypeError("alphabet must be one of: base58, base62, hex");
+  }
+  if (seed !== undefined && typeof seed !== "string") {
+    throw new TypeError("seed must be a string");
+  }
+
+  // Seeded generation is deterministic; regular generation uses OS/browser randomness.
   const bytes = getRandomBytes(size, seed);
+  const randomSegment = encodeBase(bytes, alphabet);
 
-  // Fast encoding
-  const encoded = encodeBase(bytes, alphabet);
-
-  return prefix + encoded;
+  // A timestamp prefix makes IDs created later sort after IDs created earlier.
+  const timestampSegment = time ? getTimePrefix(alphabet) : "";
+  return timestampSegment + randomSegment;
 }
 
-export {snapid as SnapId}
+/** Backward-compatible named alias for {@link snapid}. */
+export const SnapId = snapid;
+
+/** Default export for convenience. */
 export default snapid;
