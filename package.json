@@ -1,6 +1,6 @@
 {
   "name": "snapid",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Fast, secure, URL-safe, short unique ID generator for Node.js, browser, and Deno",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -40,7 +40,7 @@
     "type": "git",
     "url": "git+https://github.com/dhiraj2105/snapid.git"
   },
-  "homepage": "https://github.com/dhiraj2105/snapid#readme",
+  "homepage": "https://dhiraj2105.github.io/snapid/",
   "bugs": {
     "url": "https://github.com/dhiraj2105/snapid/issues"
   },

@@ -44,3 +44,22 @@
 ## Release metadata
 
 - Incremented the package and lockfile version from `1.0.7` to `1.0.8`.
+
+## Version 1.0.9
+
+- Bumped the package and lockfile version to `1.0.9`.
+- Updated the documentation site's structured metadata and LLM references to the current release.
+
+## Documentation website
+
+- Added a responsive, dependency-free documentation site in `docs/` with examples, API reference, security notes, light/dark theme toggle, and copy-to-clipboard controls.
+- Added SEO metadata, structured data, sitemap, robots file, and LLM/RAG-friendly `llms.txt` references.
+- Added a GitHub Actions workflow to deploy `docs/` to GitHub Pages from the `main` branch.
+- Linked the npm package homepage and project README to the documentation website.
+
+## Documentation website
+
+- Added a responsive, dependency-free documentation site in `docs/` with examples, API reference, security notes, light/dark theme toggle, and copy-to-clipboard controls.
+- Added SEO metadata, structured data, sitemap, robots file, and LLM/RAG-friendly `llms.txt` references.
+- Added a GitHub Actions workflow to deploy `docs/` to GitHub Pages from the `main` branch.
+- Linked the npm package homepage and project README to the documentation website.
