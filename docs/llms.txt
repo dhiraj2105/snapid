@@ -1,0 +1,35 @@
+# Snapid
+
+> Snapid is a lightweight JavaScript and TypeScript library for generating short identifiers.
+
+## Documentation
+
+- [Human-friendly documentation](https://dhiraj2105.github.io/snapid/): guides, examples, API, and security notes.
+- [Complete LLM-friendly documentation](https://dhiraj2105.github.io/snapid/llms-full.txt): plain-text summary of the API and common use cases.
+- [Project README](https://github.com/dhiraj2105/snapid/blob/main/README.md)
+- [Source repository](https://github.com/dhiraj2105/snapid)
+- [npm package](https://www.npmjs.com/package/snapid)
+- [Issue tracker](https://github.com/dhiraj2105/snapid/issues)
+
+## Key facts
+
+- Current documented release: 1.0.9
+- No runtime dependencies.
+- Supports Node.js, browsers with Web Crypto, and Deno.
+- Default output is a 10-character Base58 string.
+- Options: `size` (integer 1–1024), `time` (boolean), `alphabet` (`base58`, `base62`, `hex`), and `seed` (string).
+- Unseeded IDs use cryptographic randomness. If no secure random source exists, generation throws.
+- Seeded generation is deterministic and is not suitable for secrets, passwords, or unpredictable tokens.
+- `time: true` prepends a fixed-width timestamp segment.
+
+## Quick start
+
+```js
+import snapid from "snapid";
+
+const id = snapid();
+const sortableId = snapid({ time: true, size: 12 });
+const hexId = snapid({ alphabet: "hex", size: 16 });
+```
+
+For detailed options and examples, read the documentation page or full text reference above.
