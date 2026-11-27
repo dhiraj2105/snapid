@@ -1,0 +1,86 @@
+# Snapid Documentation (LLM-friendly)
+
+Snapid is a dependency-free JavaScript and TypeScript library that generates short identifiers. The documented package version is 1.0.9. It runs in Node.js, browsers with Web Crypto, and Deno.
+
+## Install
+
+```sh
+npm install snapid
+```
+
+## Import
+
+```js
+import snapid, { SnapId } from "snapid";
+const first = snapid();
+const second = SnapId();
+```
+
+The default export `snapid` and named export `SnapId` refer to the same ID generator.
+
+## Function
+
+`snapid(options?: SnapIdOptions): string`
+
+Returns an identifier composed of an optional timestamp prefix followed by an exact-length random segment. With defaults, the function returns 10 Base58 characters.
+
+### Options
+
+| Name | Type | Default | Description |
+|---|---|---|---|
+| `size` | number | `10` | Number of characters in the random segment. Must be an integer from 1 through 1024. |
+| `time` | boolean | `false` | When true, adds a fixed-width encoded timestamp before the random segment. |
+| `alphabet` | `"base58" \| "base62" \| "hex"` | `"base58"` | Alphabet for the timestamp and random segment. |
+| `seed` | string | `undefined` | Makes the random segment deterministic for the same seed and options. |
+
+### Alphabets
+
+- `base58`: `123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz`
+- `base62`: `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`
+- `hex`: `0123456789abcdef`
+
+### Examples
+
+```js
+const normalId = snapid();
+const customLength = snapid({ size: 16 });
+const sortableId = snapid({ time: true });
+const shortHexId = snapid({ alphabet: "hex", size: 12 });
+const stableId = snapid({ seed: "fixture-42", size: 12 });
+```
+
+For a given seed, alphabet, and size, seeded output is reproducible. The timestamp still reflects the current time if `time: true`.
+
+## Security
+
+Unseeded random bytes are generated with Node.js `node:crypto.randomFillSync` or `globalThis.crypto.getRandomValues`. The library throws if no secure random source is available rather than falling back to weak randomness.
+
+Seeded output is reproducible and is not cryptographically secure. Do not use seeded output for passwords, authentication tokens, session secrets, or any value that must be unpredictable.
+
+## Errors
+
+- Invalid option types or alphabet values throw `TypeError`.
+- A size that is not an integer from 1 through 1024 throws `RangeError`.
+- Lack of secure randomness for unseeded generation throws `Error`.
+
+## Named exports
+
+- `snapid`: default and named generator function.
+- `SnapId`: backward-compatible named alias for the generator.
+- `SnapIdOptions`: TypeScript interface for generator options.
+- `AlphabetName`: TypeScript union type for supported alphabet names.
+- `ALPHABETS`: supported alphabet strings.
+- `DEFAULTS`: default option values.
+- `DEFAULT_SIZE`: default random segment length.
+- `MAX_SIZE`: maximum random segment length.
+- `encodeBase(bytes, alphabet?)`: encode bytes by mapping each byte to one character from the selected alphabet. This utility's direct modulo mapping is for ID output and should not be used as a general-purpose unbiased encoder.
+- `getRandomBytes(size, seed?)`: get secure random bytes or deterministic seeded bytes.
+- `getTimePrefix(alphabet?)`: get a fixed-width timestamp prefix in the selected alphabet.
+
+## Links
+
+- Documentation website: https://dhiraj2105.github.io/snapid/
+- GitHub: https://github.com/dhiraj2105/snapid
+- npm: https://www.npmjs.com/package/snapid
+- Issues: https://github.com/dhiraj2105/snapid/issues
+- README: https://github.com/dhiraj2105/snapid/blob/main/README.md
