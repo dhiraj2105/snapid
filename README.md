@@ -1,5 +1,7 @@
 # Snapid
 
+[Read the documentation website](https://dhiraj2105.github.io/snapid/) · [View on npm](https://www.npmjs.com/package/snapid) · [GitHub repository](https://github.com/dhiraj2105/snapid)
+
 Snapid is a dependency-free, short identifier generator for Node.js, browsers, Deno, and JavaScript or TypeScript applications. It supports secure randomness, exact-length IDs, URL-safe alphabets, sortable timestamp prefixes, and reproducible seeded output.
 
 ## Features
