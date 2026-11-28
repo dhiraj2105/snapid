@@ -65,3 +65,54 @@ document.querySelectorAll("[data-copy]").forEach((button) => {
 
 document.querySelector("#year").textContent = String(new Date().getFullYear());
 setTheme(root.dataset.theme || "light");
+
+const npmDownloadCount = document.querySelector("#npm-download-count");
+const npmDownloadsPeriod = document.querySelector(".downloads-period");
+const npmDownloadsUrl =
+  "https://api.npmjs.org/downloads/point/last-month/snapid";
+
+async function loadNpmDownloads() {
+  npmDownloadCount.textContent = "Loading…";
+  npmDownloadsPeriod.textContent = "last 30 days";
+
+  try {
+    const response = await fetch(npmDownloadsUrl, {
+      headers: { Accept: "application/json" },
+      cache: "no-store",
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!response.ok) {
+      throw new Error(`npm downloads request failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    if (
+      typeof data.downloads !== "number" ||
+      !Number.isFinite(data.downloads) ||
+      data.downloads < 0
+    ) {
+      throw new Error("npm downloads response did not contain a valid count");
+    }
+
+    npmDownloadCount.textContent = new Intl.NumberFormat().format(data.downloads);
+    npmDownloadCount.setAttribute(
+      "aria-label",
+      `${new Intl.NumberFormat().format(data.downloads)} downloads in the last 30 days`,
+    );
+    npmDownloadCount.closest(".downloads-card").setAttribute("aria-busy", "false");
+    if (typeof data.start === "string" && typeof data.end === "string") {
+      npmDownloadsPeriod.title = `${data.start} through ${data.end}`;
+    }
+  } catch (error) {
+    console.error("Unable to load Snapid npm download statistics:", error);
+    npmDownloadCount.closest(".downloads-card").setAttribute("aria-busy", "false");
+    npmDownloadCount.textContent = "Unavailable";
+    npmDownloadCount.setAttribute(
+      "aria-label",
+      "npm download statistics are currently unavailable",
+    );
+    npmDownloadsPeriod.textContent = "try the npm stats link";
+  }
+}
+
+loadNpmDownloads();
