@@ -1,6 +1,6 @@
 # Snapid Documentation (LLM-friendly)
 
-Snapid is a dependency-free JavaScript and TypeScript library that generates short identifiers. The documented package version is 1.0.9. It runs in Node.js, browsers with Web Crypto, and Deno.
+Snapid is a dependency-free JavaScript and TypeScript library that generates short identifiers. The documented package version is 1.0.10. It runs in Node.js, browsers with Web Crypto, and Deno.
 
 ## Install
 

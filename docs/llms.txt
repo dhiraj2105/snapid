@@ -13,7 +13,7 @@
 
 ## Key facts
 
-- Current documented release: 1.0.9
+- Current documented release: 1.0.10
 - No runtime dependencies.
 - Supports Node.js, browsers with Web Crypto, and Deno.
 - Default output is a 10-character Base58 string.
