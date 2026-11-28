@@ -56,6 +56,12 @@
 - Added SEO metadata, structured data, sitemap, robots file, and LLM/RAG-friendly `llms.txt` references.
 - Added a GitHub Actions workflow to deploy `docs/` to GitHub Pages from the `main` branch.
 - Linked the npm package homepage and project README to the documentation website.
+- Added a compact live npm downloads panel to the quickstart section. It reports the official rolling 30-day count, links to the npm API data, and presents loading and unavailable states without implying an all-time total.
+
+## Version 1.0.10
+
+- Bumped the package and lockfile version to `1.0.10`.
+- Updated structured website metadata and LLM references for the current release.
 
 ## Documentation website
 
